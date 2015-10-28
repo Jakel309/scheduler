@@ -73,7 +73,7 @@ CREATE TABLE registrations (
 	`Room Code1` VARCHAR(32), 
 	`Schd Code1` VARCHAR(3) NOT NULL, 
 	`Monday Ind1` VARCHAR(32), 
-	`Tuesday Ind1` BOOL NOT NULL, 
+	`Tuesday Ind1` VARCHAR(32),
 	`Wednesday Ind1` VARCHAR(32), 
 	`Thursday Ind1` VARCHAR(32), 
 	`Friday Ind1` VARCHAR(32), 
