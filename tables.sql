@@ -6,6 +6,7 @@ create table student(
 	`Banner ID` VARCHAR(9) NOT NULL, 
 	`First Name` VARCHAR(32) NOT NULL, 
 	`Last Name` VARCHAR(32) NOT NULL,
+	`Class Code` VARCHAR(2) NOT NULL,
 	`Ovrall Cumm GPA Hrs Attempted` INTEGER NOT NULL, 
 	`Ovrall Cumm GPA Hours Earned` INTEGER NOT NULL, 
 	`Ovrall Cumm GPA Hrs` INTEGER NOT NULL, 
@@ -44,10 +45,10 @@ create table enrollment(
 	primary key (`Banner ID`,`CRN`,`Term Code`)
 );
 
-insert into student (`Banner ID`,`First Name`,`Last Name`,`Ovrall Cumm GPA Hrs Attempted`, 
+insert into student (`Banner ID`,`First Name`,`Last Name`,`Class Code`,`Ovrall Cumm GPA Hrs Attempted`, 
 	`Ovrall Cumm GPA Hours Earned`,`Ovrall Cumm GPA Hrs`,`Ovrall Cumm GPA Quality Points`, 
 	`Ovrall Cumm GPA`,`Ovrall Cumm GPA Hrs Passed`)
-select `Banner ID`,`First Name`,`Last Name`,`Ovrall Cumm GPA Hrs Attempted`, 
+select `Banner ID`,`First Name`,`Last Name`,`Class Code`,`Ovrall Cumm GPA Hrs Attempted`, 
 	`Ovrall Cumm GPA Hours Earned`,`Ovrall Cumm GPA Hrs`,`Ovrall Cumm GPA Quality Points`, 
 	`Ovrall Cumm GPA`,`Ovrall Cumm GPA Hrs Passed` from (select * from registrations order by `Term Code` DESC) r
 	group by `Banner ID`,`First Name`,`Last Name`;
