@@ -74,6 +74,7 @@ order by se.`Begin Time 1`;
 select distinct se.`Begin Time 1`, se.`End Time1`,
 se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
 from section as se
-where (se.`Monday Ind1` = 'M' and se.`Wednesday Ind1` = 'W' and se.`Friday Ind1` = 'F' and se.`Tuesday Ind1` != 'T' and se.`Thursday Ind1` != 'R')
-or (se.`Tuesday Ind1` = 'T' and se.`Thursday Ind1` = 'R' and se.`Monday Ind1` != 'M' and se.`Wednesday Ind1` != 'W' and se.`Friday Ind1` != 'F')
+where ((se.`Monday Ind1` = 'M' and se.`Wednesday Ind1` = 'W' and se.`Friday Ind1` = 'F' and se.`Tuesday Ind1` != 'T' and se.`Thursday Ind1` != 'R')
+or (se.`Tuesday Ind1` = 'T' and se.`Thursday Ind1` = 'R' and se.`Monday Ind1` != 'M' and se.`Wednesday Ind1` != 'W' and se.`Friday Ind1` != 'F'))
+and se.`Begin Time 1` >= 800 and se.`Begin Time 1` <= 1600 and ((se.`End Time1` - se.`Begin Time 1`) = 50 or (se.`End Time1` - se.`Begin Time 1`) = 120)
 order by se.`Begin Time 1`;
