@@ -20,7 +20,7 @@ def ConfigSectionMap(section):
     return dict1
 
 db = mysql.connector.connect(user=ConfigSectionMap("Database")['user'], password=ConfigSectionMap("Database")['password'],
-	host=ConfigSectionMap("Database")['host'], database=ConfigSectionMap("Database")['database'])
+	host=ConfigSectionMap("Database")['host'], database=ConfigSectionMap("Database")['database'], client_flags=[ClientFlag.LOCAL_FILES])
 cursor = db.cursor()
 
 #create (replace) registration table
