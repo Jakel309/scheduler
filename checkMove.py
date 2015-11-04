@@ -77,8 +77,8 @@ for i in days:
 				"and st.`Banner ID` = en.`Banner ID` ",
 				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum," and se.`Term Code` = ",str(termCode),"') ",
 				"and se.`Tuesday Ind1`='T' ",
-				"and se.`Begin Time 1`=",time[0]," ",
-				"and se.`End Time1`=",time[1],";"]))
+				"and se.`Begin Time 1`=",str(time[0])," ",
+				"and se.`End Time1`=",str(time[1]),";"]))
 	elif i=='W':
 		cursor.execute(''.join(["select distinct st.`First Name`, st.`Last Name`, st.`Banner ID`, st.`Class Code` ",
 				"from section as se, enrollment as en, student as st ",
