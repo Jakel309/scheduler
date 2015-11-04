@@ -127,6 +127,7 @@ for i in days:
 	for (fname, lname, banner, classification) in cursor:
 		temp=Student(fname,lname,banner,classification)
 		isThere=False
+		print i+' '+fname+' '+lname
 		for j in conflicts:
 			if temp==j:
 				isThere=True
