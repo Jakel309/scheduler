@@ -49,7 +49,7 @@ time=sys.argv[3].translate(None,'[]').split('-')
 conflicts=[]
 
 for i in days:
-	if i=='M':
+	if i=='M': 
 		cursor.execute(''.join(["select distinct st.`First Name`, st.`Last Name`, st.`Banner ID`, st.`Class Code` ",
 				"from section as se, enrollment as en, student as st ",
 				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
@@ -60,7 +60,7 @@ for i in days:
 				"from section as se, student as st, enrollment as en ",
 				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
 				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum,"') ",
+				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum," and se.`Term Code` = ",str(termCode),"') ",
 				"and se.`Monday Ind1`='M' ",
 				"and se.`Begin Time 1`=",str(time[0])," ",
 				"and se.`End Time1`=",str(time[1]),";"]))
@@ -75,7 +75,7 @@ for i in days:
 				"from section as se, student as st, enrollment as en ",
 				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
 				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",items[1]," and se.`Section Number` like '%",secNum,"') ",
+				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum," and se.`Term Code` = ",str(termCode),"') ",
 				"and se.`Tuesday Ind1`='T' ",
 				"and se.`Begin Time 1`=",time[0]," ",
 				"and se.`End Time1`=",time[1],";"]))
@@ -90,7 +90,7 @@ for i in days:
 				"from section as se, student as st, enrollment as en ",
 				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
 				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Subject Code` = '",str(items[0]),"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum,"') ",
+				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum," and se.`Term Code` = ",str(termCode),"') ",
 				"and se.`Wednesday Ind1`='W' ",
 				"and se.`Begin Time 1`=",str(time[0])," ",
 				"and se.`End Time1`=",str(time[1]),";"]))
@@ -105,7 +105,7 @@ for i in days:
 				"from section as se, student as st, enrollment as en ",
 				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
 				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Subject Code` = '",str(items[0]),"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum,"') ",
+				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum," and se.`Term Code` = ",str(termCode),"') ",
 				"and se.`Thursday Ind1`='R' ",
 				"and se.`Begin Time 1`=",str(time[0])," ",
 				"and se.`End Time1`=",str(time[1]),";"]))
@@ -120,7 +120,7 @@ for i in days:
 				"from section as se, student as st, enrollment as en ",
 				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
 				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Subject Code` = '",str(items[0]),"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum,"') ",
+				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` like '%",secNum," and se.`Term Code` = ",str(termCode),"') ",
 				"and se.`Friday Ind1`='F' ",
 				"and se.`Begin Time 1`=",str(time[0])," ",
 				"and se.`End Time1`=",str(time[1]),";"]))
