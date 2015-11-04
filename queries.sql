@@ -83,6 +83,7 @@ and se.`Begin Time 1` >= 800 and se.`Begin Time 1` <= 1500
 order by se.`Begin Time 1`;
 
 /* Find possible times that the class can be moved to by checking schedules of all students in a class and comparing with a list of ideal time slots */
+/* Only accounts for MWF and TR */
 select distinct se.`Begin Time 1`, se.`End Time1`,
 se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`,
 se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
@@ -109,6 +110,8 @@ and (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, se.
 		and st.`Banner ID` = en.`Banner ID`
 		and se.`Subject Code` = 'CS' and se.`Course Number` = 374 and se.`Section Number` = 01
 	)
-	order by st.`Last Name`, st.`First Name`, se.`Begin Time 1`
+	group by se.`Begin Time 1`, se.`End Time1`,
+	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
+	having count(*) > 0
 )
 order by se.`Begin Time 1`;
