@@ -112,6 +112,6 @@ and (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, se.
 	)
 	group by se.`Begin Time 1`, se.`End Time1`,
 	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
-	having count(*) > 0
+    having sum(st.`Class Code` = 'SR') > 0 or sum(st.`Class Code` != 'SR') > 0
 )
 order by se.`Begin Time 1`;
