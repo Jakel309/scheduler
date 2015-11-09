@@ -108,13 +108,13 @@ se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`,
 se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
 from section as se
 where
-(
+(	/* Look only for practical MWF or TR times */
 	(se.`Monday Ind1` = 'M' and se.`Wednesday Ind1` = 'W' and se.`Friday Ind1` = 'F' and se.`Tuesday Ind1` != 'T' and se.`Thursday Ind1` != 'R' and (se.`End Time1` - se.`Begin Time 1`) = 50)
 	or (se.`Tuesday Ind1` = 'T' and se.`Thursday Ind1` = 'R' and se.`Monday Ind1` != 'M' and se.`Wednesday Ind1` != 'W' and se.`Friday Ind1` != 'F' and (se.`End Time1` - se.`Begin Time 1`) = 120)
 )
 and se.`Begin Time 1` >= 800 and se.`Begin Time 1` <= 1600
 and (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`) not in 
-(
+(	/* Rule out times with student conflicts */
 	select se.`Begin Time 1`, se.`End Time1`,
 	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
 	from section as se, enrollment as en, student as st
@@ -132,10 +132,11 @@ and (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, se.
 	)
 	group by se.`Begin Time 1`, se.`End Time1`,
 	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
-	having sum(st.`Class Code` = 'SR') > 0 or sum(st.`Class Code` != 'SR') > 0
+	/* Acceptable losses: replace the zero with whatever number of students you are willing to lose */
+    having sum(st.`Class Code` = 'SR') > 0 or sum(st.`Class Code` != 'SR') > 0
 )
 and (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`) not in 
-(
+(	/* Check times for instructor conflicts */
 	select se.`Begin Time 1`, se.`End Time1`,
 	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`,
 	se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
