@@ -50,7 +50,7 @@ CREATE TABLE registrations (
 	`Billing Hours` INTEGER NOT NULL, 
 	`Credit Hours` INTEGER NOT NULL, 
 	`Instructor ID` INTEGER NOT NULL, 
-	`Instructor Name` VARCHAR(13) NOT NULL, 
+	`Instructor Name` VARCHAR(32) NOT NULL, 
 	`Hours Attended` VARCHAR(32), 
 	`Grade Mode Code` BOOL NOT NULL, 
 	`Grade Mode Desc` VARCHAR(10) NOT NULL, 
