@@ -33,7 +33,9 @@ create table section(
 	`Thursday Ind1` VARCHAR(32), 
 	`Friday Ind1` VARCHAR(32), 
 	`Saturday Ind1` VARCHAR(32), 
-	`Sunday Ind1` VARCHAR(32), 
+	`Sunday Ind1` VARCHAR(32),
+	`Instructor ID` INTEGER NOT NULL, 
+	`Instructor Name` VARCHAR(32) NOT NULL, 
 	primary key (`CRN`,`Term Code`)
 );
 
@@ -53,8 +55,8 @@ select `Banner ID`,`First Name`,`Last Name`,`Class Code`,`Ovrall Cumm GPA Hrs At
 	`Ovrall Cumm GPA`,`Ovrall Cumm GPA Hrs Passed` from (select * from registrations order by `Term Code` DESC) r
 	group by `Banner ID`,`First Name`,`Last Name`;
 
-insert into section (`CRN`,`Subject Code`,`Course Number`,`Section Number`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1`)
-select distinct `CRN`,`Subject Code`,`Course Number`,`Section Number`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1` from registrations;
+insert into section (`CRN`,`Subject Code`,`Course Number`,`Section Number`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1`,`Instructor ID`,`Instructor Name`)
+select distinct `CRN`,`Subject Code`,`Course Number`,`Section Number`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1`,`Instructor ID`,`Instructor Name` from registrations;
 
 insert into enrollment (`Banner ID`,`CRN`, `Term Code`, `Grade`)
 select distinct `Banner ID`,`CRN`, `Term Code`, `Grade Code` from registrations;
