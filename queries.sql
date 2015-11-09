@@ -29,6 +29,22 @@ and se.`Term Code` = 201610
 )
 order by st.`Last Name`, st.`First Name`, se.`Begin Time 1`;
 
+/* Get all the classes and times that have the same professor as a given course */
+select se.`Instructor Name`, se.`Instructor ID`,
+se.`CRN`, se.`Subject Code`, se.`Course Number`, se.`Section Number`,
+se.`Begin Time 1`, se.`End Time1`,
+se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`,
+se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
+from section as se
+where se.`Instructor ID` in
+(
+	select se.`Instructor ID`
+	from section as se
+	where se.`Subject Code` = 'CS' and se.`Course Number` = 374 and se.`Section Number` = 01
+	and se.`Term Code` = 201610
+)
+order by se.`Begin Time 1`;
+
 /* This query should return the number of students that have a class at a certain day/time */
 select count(*) as "# of Students", se.`Begin Time 1`, se.`End Time1`,
 se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
