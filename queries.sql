@@ -116,47 +116,57 @@ order by se.`Begin Time 1`;
 
 
 /* Find "normal" timeslots that intersect with "odd" timeslots */
-select distinct se.`Begin Time 1`, se.`End Time1`,
-se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
-from section as se, section as se2, enrollment as en, student as st
-where (se2.`CRN` = en.`CRN` and se2.`Term Code` = en.`Term Code`)
-and st.`Banner ID` = en.`Banner ID`
-and se.`Term Code` = 201610
-and st.`Banner ID` in
+select distinct t1.`Begin Time 1`, t1.`End Time1`,
+t1.`Monday Ind1`, t1.`Tuesday Ind1`, t1.`Wednesday Ind1`, t1.`Thursday Ind1`, t1.`Friday Ind1`, t1.`Saturday Ind1`, t1.`Sunday Ind1`
+from
+(
+	select distinct se.`Begin Time 1`, se.`End Time1`,
+	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
+	from section as se
+	where
+	(
+		(se.`Monday Ind1` = 'M' and se.`Wednesday Ind1` = 'W' and se.`Friday Ind1` = 'F' and se.`Tuesday Ind1` != 'T' and se.`Thursday Ind1` != 'R' and (se.`End Time1` - se.`Begin Time 1`) = 50)
+		or (se.`Tuesday Ind1` = 'T' and se.`Thursday Ind1` = 'R' and se.`Monday Ind1` != 'M' and se.`Wednesday Ind1` != 'W' and se.`Friday Ind1` != 'F' and (se.`End Time1` - se.`Begin Time 1`) = 120)
+	)
+) as t1,
+(
+	select distinct se.`Begin Time 1`, se.`End Time1`,
+	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
+    from section as se, enrollment as en, student as st
+    where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`)
+	and st.`Banner ID` = en.`Banner ID`
+	and se.`Term Code` = 201610
+	and st.`Banner ID` in
 	(
 		select st.`Banner ID`
 		from section as se, student as st, enrollment as en
 		where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`)
 		and st.`Banner ID` = en.`Banner ID`
-		and se.`Subject Code` = 'CS' and se.`Course Number` = 374 and se.`Section Number` = 01
+		and se.`Subject Code` = 'CS' and se.`Course Number` = 332 and se.`Section Number` = 01
 		and se.`Term Code` = 201610
 	)
-and
-(
-	not (se2.`Monday Ind1` = 'M' and se2.`Wednesday Ind1` = 'W' and se2.`Friday Ind1` = 'F' and se2.`Tuesday Ind1` != 'T' and se2.`Thursday Ind1` != 'R' and (se2.`End Time1` - se2.`Begin Time 1`) = 50)
-	and not (se2.`Tuesday Ind1` = 'T' and se2.`Thursday Ind1` = 'R' and se2.`Monday Ind1` != 'M' and se2.`Wednesday Ind1` != 'W' and se2.`Friday Ind1` != 'F' and (se2.`End Time1` - se2.`Begin Time 1`) = 120)
-)
-and
-(
-	(se.`Monday Ind1` = 'M' and se.`Wednesday Ind1` = 'W' and se.`Friday Ind1` = 'F' and se.`Tuesday Ind1` != 'T' and se.`Thursday Ind1` != 'R' and (se.`End Time1` - se.`Begin Time 1`) = 50)
-	or (se.`Tuesday Ind1` = 'T' and se.`Thursday Ind1` = 'R' and se.`Monday Ind1` != 'M' and se.`Wednesday Ind1` != 'W' and se.`Friday Ind1` != 'F' and (se.`End Time1` - se.`Begin Time 1`) = 120)
-)
-and
+	and
+	(
+		not (se.`Monday Ind1` = 'M' and se.`Wednesday Ind1` = 'W' and se.`Friday Ind1` = 'F' and se.`Tuesday Ind1` != 'T' and se.`Thursday Ind1` != 'R' and (se.`End Time1` - se.`Begin Time 1`) = 50)
+		and not (se.`Tuesday Ind1` = 'T' and se.`Thursday Ind1` = 'R' and se.`Monday Ind1` != 'M' and se.`Wednesday Ind1` != 'W' and se.`Friday Ind1` != 'F' and (se.`End Time1` - se.`Begin Time 1`) = 120)
+	)
+) as t2
+where
 (
 	(
-		(se.`Monday Ind1` = 'M' and se.`Monday Ind1` = se2.`Monday Ind1`)
-        or (se.`Tuesday Ind1` = 'T' and se.`Tuesday Ind1` = se2.`Tuesday Ind1`)
-        or (se.`Wednesday Ind1` = 'W' and se.`Wednesday Ind1` = se2.`Wednesday Ind1`)
-        or (se.`Thursday Ind1` = 'R' and se.`Thursday Ind1` = se2.`Thursday Ind1`)
-        or (se.`Friday Ind1` = 'F' and se.`Friday Ind1` = se2.`Friday Ind1`)
+		(t1.`Monday Ind1` = 'M' and t1.`Monday Ind1` = t2.`Monday Ind1`)
+        or (t1.`Tuesday Ind1` = 'T' and t1.`Tuesday Ind1` = t2.`Tuesday Ind1`)
+        or (t1.`Wednesday Ind1` = 'W' and t1.`Wednesday Ind1` = t2.`Wednesday Ind1`)
+        or (t1.`Thursday Ind1` = 'R' and t1.`Thursday Ind1` = t2.`Thursday Ind1`)
+        or (t1.`Friday Ind1` = 'F' and t1.`Friday Ind1` = t2.`Friday Ind1`)
 	)
 )
 and
 (
-	(se.`Begin Time 1` between se2.`Begin Time 1` and se2.`End Time1`)
-    or (se.`End Time1` between se2.`Begin Time 1` and se2.`End Time1`)
+	(t1.`Begin Time 1` between t2.`Begin Time 1` and t2.`End Time1`)
+    or (t1.`End Time1` between t2.`Begin Time 1` and t2.`End Time1`)
 )
-order by se.`Begin Time 1`;
+order by t1.`Begin Time 1`;
 
 
 
