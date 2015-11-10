@@ -132,8 +132,8 @@ from
 (
 	select distinct se.`Begin Time 1`, se.`End Time1`,
 	se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
-    from section as se, enrollment as en, student as st
-    where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`)
+    	from section as se, enrollment as en, student as st
+    	where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`)
 	and st.`Banner ID` = en.`Banner ID`
 	and se.`Term Code` = 201610
 	and st.`Banner ID` in
@@ -142,7 +142,7 @@ from
 		from section as se, student as st, enrollment as en
 		where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`)
 		and st.`Banner ID` = en.`Banner ID`
-		and se.`Subject Code` = 'CS' and se.`Course Number` = 332 and se.`Section Number` = 01
+		and se.`Subject Code` = 'CS' and se.`Course Number` = 374 and se.`Section Number` = 01
 		and se.`Term Code` = 201610
 	)
 	and
@@ -154,7 +154,7 @@ from
 where
 (
 	(
-		(t1.`Monday Ind1` = 'M' and t1.`Monday Ind1` = t2.`Monday Ind1`)
+	(t1.`Monday Ind1` = 'M' and t1.`Monday Ind1` = t2.`Monday Ind1`)
         or (t1.`Tuesday Ind1` = 'T' and t1.`Tuesday Ind1` = t2.`Tuesday Ind1`)
         or (t1.`Wednesday Ind1` = 'W' and t1.`Wednesday Ind1` = t2.`Wednesday Ind1`)
         or (t1.`Thursday Ind1` = 'R' and t1.`Thursday Ind1` = t2.`Thursday Ind1`)
@@ -164,7 +164,7 @@ where
 and
 (
 	(t1.`Begin Time 1` between t2.`Begin Time 1` and t2.`End Time1`)
-    or (t1.`End Time1` between t2.`Begin Time 1` and t2.`End Time1`)
+	or (t1.`End Time1` between t2.`Begin Time 1` and t2.`End Time1`)
 )
 order by t1.`Begin Time 1`;
 
