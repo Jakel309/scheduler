@@ -187,9 +187,9 @@ from
 			or (se.`Tuesday Ind1` = 'T' and se.`Thursday Ind1` = 'R' and se.`Monday Ind1` != 'M' and se.`Wednesday Ind1` != 'W' and se.`Friday Ind1` != 'F' and (se.`End Time1` - se.`Begin Time 1`) = 120)
 		)
 		and se.`Begin Time 1` >= 800 and se.`Begin Time 1` <= 1600
-    ) as se
+	) as se
 	where (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`) not in
-    (
+	(
 		select distinct se.`Begin Time 1`, se.`End Time1`,
 		se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`,
 		se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`
@@ -201,7 +201,7 @@ from
 			where se.`Subject Code` = 'CS' and se.`Course Number` = 374 and se.`Section Number` = 01
 			and se.`Term Code` = 201610
 		)
-    )
+	)
 ) as se
 where (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, se.`Wednesday Ind1`, se.`Thursday Ind1`, se.`Friday Ind1`, se.`Saturday Ind1`, se.`Sunday Ind1`) not in 
 (	/* Rule out times with student conflicts */
