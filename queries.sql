@@ -214,6 +214,7 @@ from
 				where se.`Subject Code` = 'CS' and se.`Course Number` = 374 and se.`Section Number` = 01
 				and se.`Term Code` = 201610
 			)
+            and se.`Term Code` = 201610
 		) as t2
 		where
 		(
@@ -282,6 +283,6 @@ where (se.`Begin Time 1`, se.`End Time1`, se.`Monday Ind1`, se.`Tuesday Ind1`, s
 	group by t1.`Begin Time 1`, t1.`End Time1`,
 	t1.`Monday Ind1`, t1.`Tuesday Ind1`, t1.`Wednesday Ind1`, t1.`Thursday Ind1`, t1.`Friday Ind1`, t1.`Saturday Ind1`, t1.`Sunday Ind1`
 	/* Acceptable losses: replace the zero with whatever number of students you are willing to lose */
-	having sum(t2.`Class Code` = 'SR') > 0 or sum(t2.`Class Code` != 'SR') > 0
+	having sum(t2.`Class Code` = 'SR') > 4 or sum(t2.`Class Code` != 'SR') > 2
 )
 order by se.`Begin Time 1`;
