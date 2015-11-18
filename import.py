@@ -25,7 +25,7 @@ cursor = db.cursor()
 
 #create (replace) registration table
 for line in open("registrations.sql").read().split(';\n'):
-    cursor.execute(line,multi=True)
+    cursor.execute(line)
 
 #get all csv files
 for path in glob("csvs/*.csv"):
@@ -39,7 +39,7 @@ cursor.execute("delete from registrations where crn = 0;")
 
 #dump into real tables, then it's ready to go
 for line in open("tables.sql").read().split(';\n'):
-    cursor.execute(line,multi=True)
+    cursor.execute(line)
 
 db.commit()
 
