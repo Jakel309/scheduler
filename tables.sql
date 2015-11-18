@@ -13,6 +13,7 @@ create table student(
 	`Ovrall Cumm GPA Quality Points` INTEGER NOT NULL, 
 	`Ovrall Cumm GPA` INTEGER NOT NULL, 
 	`Ovrall Cumm GPA Hrs Passed` INTEGER NOT NULL,
+	`ACU Email Address` VARCHAR(32) NOT NULL,
 	primary key(`Banner ID`)
 );
 
@@ -21,6 +22,7 @@ create table section(
 	`Subject Code` VARCHAR(4) NOT NULL,
 	`Course Number` INTEGER NOT NULL,
 	`Section Number` VARCHAR(4) NOT NULL,
+	`Course Title` VARCHAR(255) NOT NULL,
 	`Term Code` INTEGER NOT NULL,
 	`Begin Time 1` INTEGER NOT NULL, 
 	`End Time1` INTEGER NOT NULL, 
@@ -49,14 +51,14 @@ create table enrollment(
 
 insert into student (`Banner ID`,`First Name`,`Last Name`,`Class Code`,`Ovrall Cumm GPA Hrs Attempted`, 
 	`Ovrall Cumm GPA Hours Earned`,`Ovrall Cumm GPA Hrs`,`Ovrall Cumm GPA Quality Points`, 
-	`Ovrall Cumm GPA`,`Ovrall Cumm GPA Hrs Passed`)
+	`Ovrall Cumm GPA`,`Ovrall Cumm GPA Hrs Passed`,`ACU Email Address`)
 select `Banner ID`,`First Name`,`Last Name`,`Class Code`,`Ovrall Cumm GPA Hrs Attempted`, 
 	`Ovrall Cumm GPA Hours Earned`,`Ovrall Cumm GPA Hrs`,`Ovrall Cumm GPA Quality Points`, 
-	`Ovrall Cumm GPA`,`Ovrall Cumm GPA Hrs Passed` from (select * from registrations order by `Term Code` DESC) r
+	`Ovrall Cumm GPA`,`Ovrall Cumm GPA Hrs Passed`,`ACU Email Address` from (select * from registrations order by `Term Code` DESC) r
 	group by `Banner ID`,`First Name`,`Last Name`;
 
-insert into section (`CRN`,`Subject Code`,`Course Number`,`Section Number`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1`,`Instructor ID`,`Instructor Name`)
-select distinct `CRN`,`Subject Code`,`Course Number`,`Section Number`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1`,`Instructor ID`,`Instructor Name` from registrations;
+insert into section (`CRN`,`Subject Code`,`Course Number`,`Section Number`, `Course Title`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1`,`Instructor ID`,`Instructor Name`)
+select distinct `CRN`,`Subject Code`,`Course Number`,`Section Number`, `Course Title`, `Term Code`,`Begin Time 1`,`End Time1`,`Bldg Code1`,`Bldg Desc1`,`Room Code1`,`Monday Ind1`,`Tuesday Ind1`,`Wednesday Ind1`,`Thursday Ind1`,`Friday Ind1`,`Saturday Ind1`,`Sunday Ind1`,`Instructor ID`,`Instructor Name` from registrations;
 
 insert into enrollment (`Banner ID`,`CRN`, `Term Code`, `Grade`)
 select distinct `Banner ID`,`CRN`, `Term Code`, `Grade Code` from registrations;
