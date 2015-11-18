@@ -151,9 +151,12 @@ for (bt, et, m, t, w, r, f, sa, su) in cursor:
 	courses.append(temp)
 
 for i in courses:
-	if i.t=='T' or i.r=='R':
-		if i.et-i.bt==120:
-			print str(i.bt)+'-'+str(i.et)+' '+i.t+i.r
-	elif i.m=="M" or i.w=="W" or i.f=='F':
-		if i.et-i.bt==50:
-			print str(i.bt)+'-'+str(i.et)+' '+i.m+i.w+i.f
+	print str(i.bt)+'-'+str(i.et)+' '+i.m+i.t+i.w+i.r+i.f
+
+#for i in courses:
+#	if i.t=='T' or i.r=='R':
+#		if i.et-i.bt==120:
+#			print str(i.bt)+'-'+str(i.et)+' '+i.t+i.r
+#	elif i.m=="M" or i.w=="W" or i.f=='F':
+#		if i.et-i.bt==50:
+#			print str(i.bt)+'-'+str(i.et)+' '+i.m+i.w+i.f
