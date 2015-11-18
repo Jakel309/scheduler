@@ -6,10 +6,6 @@ import string
 import ConfigParser
 import os
 
-clear = lambda: os.system('clear')
-clear()
-print '\n\n\n\n\n\n\n'
-
 class Student:
 	def __init__(self, firstName, lastName, banner, classification, email, courseCode, courseName):
 		self.fn=firstName
@@ -50,7 +46,7 @@ db = mysql.connector.connect(user=ConfigSectionMap("Database")['user'], password
 	host=ConfigSectionMap("Database")['host'], database=ConfigSectionMap("Database")['database'], client_flags=[ClientFlag.LOCAL_FILES])
 cursor = db.cursor()
 
-fullCourse=sys.argv[1].translate(None,'[]').split('.')
+fullCourse=sys.argv[1].translate(None,'[],').split('.')
 secNum=fullCourse[1]
 if not type(secNum) is str:
 	secNum=str(secNum)
@@ -59,12 +55,13 @@ if len(secNum)==1:
 course=re.match(r"([A-Z]+)([0-9]+)",fullCourse[0],re.I)
 cursor.execute(''.join(["select max(`Term Code`) from enrollment"]))
 termCode=cursor.fetchone()[0]
+
 if course:
 	items=course.groups()
 
-days=sys.argv[2].translate(None,'[]')
+days=sys.argv[2].translate(None,'[],')
 
-time=sys.argv[3].translate(None,'[]').split('-')
+time=sys.argv[3].translate(None,'[],').split('-')
 
 conflicts=[]
 
@@ -279,40 +276,9 @@ cursor.execute(''.join(["select count(`Banner ID`) from",
 
 numStud=cursor.fetchone()[0]
 
-print str(len(conflicts))+' out of '+str(numStud)+' have schedule conflicts and here are the students with the conflicts\n'
+#print str(len(conflicts))+' out of '+str(numStud)+' have schedule conflicts and here are the students with the conflicts\n'
 
 if prof!="":
-	print "Professor is unavailable because of",prof.cc,prof.cn,'\n'
+	sys.stdout.write("Professor is unavailable because of "+prof.cc+' '+prof.cn)
 else:
-	print "Professor is available at this time\n"
-
-if conflicts==[]:
-	print "There are no conflicts!\n"
-else:
-	print '-------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
-	print '| Name\t\t\t| Banner\t| Email\t\t\t\t| Classification|Conflict Course Code\t| Conflict Course Title\t\t\t\t\t|'
-	print '-------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
-	for i in conflicts:
-		nTab=""
-		cTab=""
-		eTab=""
-		if len(i.fn+' '+i.ln)>13:
-			nTab="\t"
-		else:
-			nTab="\t\t"
-		if len(i.cn)>32:
-			cTab="\t\t"
-		elif len(i.cn)>24:
-			cTab="\t\t\t"
-		elif len(i.cn)>16:
-			cTab="\t\t\t\t\t"
-		elif len(i.cn)>8:
-			cTab="\t\t\t\t\t\t"
-		else:
-			cTab="\t\t\t\t\t\t\t"
-		if len(i.e)>20:
-			eTab="\t"
-		else:
-			eTab="\t\t"
-		print '|',i.fn,i.ln,nTab,'|',i.b,'\t|',i.e,eTab,'|',i.c,'\t\t|',i.cc,'\t\t|',i.cn,cTab,'|'
-	print '-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n'
+	sys.stdout.write("Professor is available at this time")
