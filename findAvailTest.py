@@ -118,7 +118,7 @@ cursor.execute(''.join(["select distinct se.`Begin Time 1`, se.`End Time1`, ",
 "or (t1.`End Time1` between t2.`Begin Time 1` and t2.`End Time1`)) ",
 "group by t1.`Begin Time 1`, t1.`End Time1`, ",
 "t1.`Monday Ind1`, t1.`Tuesday Ind1`, t1.`Wednesday Ind1`, t1.`Thursday Ind1`, t1.`Friday Ind1`, t1.`Saturday Ind1`, t1.`Sunday Ind1` ",
-"having sum(t2.`Class Code` = 'SR') > ",sys.argv[2]," or sum(t2.`Class Code` != 'SR') > ",sys.argv[3],") ",
+"having sum(t2.`Class Code` = 'SR') > ",sys.argv[2].translate(None,'[],')," or sum(t2.`Class Code` != 'SR') > ",sys.argv[3].translate(None,'[],'),") ",
 "order by se.`Begin Time 1`; "]))
 
 #cursor.execute(''.join(["select distinct se.`Begin Time 1`, se.`End Time1`, ",
