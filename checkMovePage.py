@@ -70,7 +70,7 @@ db = mysql.connector.connect(user=ConfigSectionMap("Database")['user'], password
 	host=ConfigSectionMap("Database")['host'], database=ConfigSectionMap("Database")['database'], client_flags=[ClientFlag.LOCAL_FILES])
 cursor = db.cursor()
 
-fullCourse = form.getvalue("course")
+fullCourse = form.getvalue("course").translate(None,'[]').split('.')
 secNum=fullCourse[1]
 if not type(secNum) is str:
 	secNum=str(secNum)
