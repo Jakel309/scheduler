@@ -29,6 +29,8 @@ import ConfigParser
 import os
 
 
+print "<pre>"
+
 
 class Student:
 	def __init__(self, firstName, lastName, banner, classification, email, courseCode, courseName):
@@ -336,3 +338,6 @@ else:
 			eTab="\t\t"
 		print '|',i.fn,i.ln,nTab,'|',i.b,'\t|',i.e,eTab,'|',i.c,'\t\t|',i.cc,'\t\t|',i.cn,cTab,'|'
 	print '-------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n'
+
+
+print "</pre>"
