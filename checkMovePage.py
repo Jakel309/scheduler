@@ -12,7 +12,7 @@ print
 #get form
 form = cgi.FieldStorage()
 #print the page if we have no variables
-if (form.getValue("course", "") == "")
+if (form.getValue("course", "") == ""):
 	print ''.join([
 		"<form action='checkMovePage.py'><input type='text' name='course'/>",
 		"<input type='text' name='days'/><input type='text' name='time'/>",
