@@ -5,9 +5,12 @@ import cgi
 import cgitb
 cgitb.enable()
 
+#print header
 print "Content-Type: text/html"
 print
 
+#get form
+form = cgi.FieldStorage()
 #print the page if we have no variables
 if (form.getValue("course", "") == "")
 	print ''.join([
