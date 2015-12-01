@@ -12,10 +12,10 @@ print
 #get form
 form = cgi.FieldStorage()
 #print the page if we have no variables
-if (form.getValue("course", "") == ""):
+if (form.getvalue("course", "") == ""):
 	print ''.join([
-		"<form action='checkMovePage.py'><input type='text' name='course'/>",
-		"<input type='text' name='days'/><input type='text' name='time'/>",
+		"<form action='checkMovePage.py'>Course:<input type='text' name='course'/><br/>",
+		"Days:<input type='text' name='days'/><br/>Time:<input type='text' name='time'/><br/>",
 		"<input type='submit'/></form>"])
 	exit()
 
@@ -70,7 +70,7 @@ db = mysql.connector.connect(user=ConfigSectionMap("Database")['user'], password
 	host=ConfigSectionMap("Database")['host'], database=ConfigSectionMap("Database")['database'], client_flags=[ClientFlag.LOCAL_FILES])
 cursor = db.cursor()
 
-fullCourse = form.getValue("course")
+fullCourse = form.getvalue("course")
 secNum=fullCourse[1]
 if not type(secNum) is str:
 	secNum=str(secNum)
@@ -82,9 +82,9 @@ termCode=cursor.fetchone()[0]
 if course:
 	items=course.groups()
 
-days = form.getValue("days").translate(None,'[]')
+days = form.getvalue("days").translate(None,'[]')
 
-time = form.getValue("time").translate(None,'[]').split('-')
+time = form.getvalue("time").translate(None,'[]').split('-')
 
 conflicts=[]
 
