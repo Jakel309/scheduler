@@ -144,36 +144,44 @@ for i in days:
 				"and se.`Friday Ind1`='F' ",
 				"and se.`Begin Time 1`=",str(time[0])," ",
 				"and se.`End Time1`=",str(time[1]),";"]))
-	elif i=='S':
-		cursor.execute(''.join(["select distinct st.`First Name`, st.`Last Name`, st.`Banner ID`, st.`Class Code`, se.`Subject Code`, se.`Course Number`, se.`Section Number`, se.`Course Title`, st.`ACU Email Address` ",
-				"from section as se, enrollment as en, student as st ",
-				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
-				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Term Code` = ",str(termCode)," ",
-				"and st.`Banner ID` in ",
-				"(select st.`Banner ID` ",
-				"from section as se, student as st, enrollment as en ",
-				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
-				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` = '",secNum,"' and se.`Term Code` = ",str(termCode),") ",
-				"and se.`Saturday Ind1`='S' ",
-				"and se.`Begin Time 1`=",str(time[0])," ",
-				"and se.`End Time1`=",str(time[1]),";"]))
-	elif i=='U':
-		cursor.execute(''.join(["select distinct st.`First Name`, st.`Last Name`, st.`Banner ID`, st.`Class Code`, se.`Subject Code`, se.`Course Number`, se.`Section Number`, se.`Course Title`, st.`ACU Email Address` ",
-				"from section as se, enrollment as en, student as st ",
-				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
-				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Term Code` = ",str(termCode)," ",
-				"and st.`Banner ID` in ",
-				"(select st.`Banner ID` ",
-				"from section as se, student as st, enrollment as en ",
-				"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
-				"and st.`Banner ID` = en.`Banner ID` ",
-				"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` = '",secNum,"' and se.`Term Code` = ",str(termCode),") ",
-				"and se.`Sunday Ind1`='U' ",
-				"and se.`Begin Time 1`=",str(time[0])," ",
-				"and se.`End Time1`=",str(time[1]),";"]))
+	# elif i=='S':
+	# 	cursor.execute(''.join(["select distinct st.`First Name`, st.`Last Name`, st.`Banner ID`, st.`Class Code`, se.`Subject Code`, se.`Course Number`, se.`Section Number`, se.`Course Title`, st.`ACU Email Address` ",
+	# 			"from section as se, enrollment as en, student as st ",
+	# 			"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
+	# 			"and st.`Banner ID` = en.`Banner ID` ",
+	# 			"and se.`Term Code` = ",str(termCode)," ",
+	# 			"and st.`Banner ID` in ",
+	# 			"(select st.`Banner ID` ",
+	# 			"from section as se, student as st, enrollment as en ",
+	# 			"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
+	# 			"and st.`Banner ID` = en.`Banner ID` ",
+	# 			"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` = '",secNum,"' and se.`Term Code` = ",str(termCode),") ",
+	# 			"and se.`Saturday Ind1`='S' ",
+	# 			"and se.`Begin Time 1`=",str(time[0])," ",
+	# 			"and se.`End Time1`=",str(time[1])," ",
+	# 			"and se.`Begin Time 1`>",
+	# 			"(select max(`End Time1`) from section where `Begin Time 1`<",str(time[0]),") ",
+	# 			"and se.`End Time1`<",
+	# 			"(select min(`Begin Time 1`) from section where `End Time1`>",str(time[1]),");"]))
+	# elif i=='U':
+	# 	cursor.execute(''.join(["select distinct st.`First Name`, st.`Last Name`, st.`Banner ID`, st.`Class Code`, se.`Subject Code`, se.`Course Number`, se.`Section Number`, se.`Course Title`, st.`ACU Email Address` ",
+	# 			"from section as se, enrollment as en, student as st ",
+	# 			"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
+	# 			"and st.`Banner ID` = en.`Banner ID` ",
+	# 			"and se.`Term Code` = ",str(termCode)," ",
+	# 			"and st.`Banner ID` in ",
+	# 			"(select st.`Banner ID` ",
+	# 			"from section as se, student as st, enrollment as en ",
+	# 			"where (se.`CRN` = en.`CRN` and se.`Term Code` = en.`Term Code`) ",
+	# 			"and st.`Banner ID` = en.`Banner ID` ",
+	# 			"and se.`Subject Code` = '",items[0],"' and se.`Course Number` = ",str(items[1])," and se.`Section Number` = '",secNum,"' and se.`Term Code` = ",str(termCode),") ",
+	# 			"and se.`Sunday Ind1`='U' ",
+	# 			"and se.`Begin Time 1`=",str(time[0])," ",
+	# 			"and se.`End Time1`=",str(time[1])," ",
+	# 			"and se.`Begin Time 1`>",
+	# 			"(select max(`End Time1`) from section where `Begin Time 1`<",str(time[0]),") ",
+	# 			"and se.`End Time1`<",
+	# 			"(select min(`Begin Time 1`) from section where `End Time1`>",str(time[1]),");"]))
 	for (fname, lname, banner, classification, sCode, cNum, sNum, courseName, email) in cursor:
 		courseCode=""
 		if type(sNum) is str:
@@ -300,16 +308,18 @@ else:
 			nTab="\t"
 		else:
 			nTab="\t\t"
+
 		if len(i.cn)>32:
 			cTab="\t\t"
 		elif len(i.cn)>24:
-			cTab="\t\t\t"
-		elif len(i.cn)>16:
+			cTab="\t\t\t\t"
+		elif len(i.cn)>15:
 			cTab="\t\t\t\t\t"
 		elif len(i.cn)>8:
-			cTab="\t\t\t\t\t\t"
+			cTab="\t\t\t\t\t"
 		else:
-			cTab="\t\t\t\t\t\t\t"
+			cTab="\t\t\t\t\t\t"
+
 		if len(i.e)>20:
 			eTab="\t"
 		else:
