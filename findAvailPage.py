@@ -14,7 +14,7 @@ form = cgi.FieldStorage()
 #print the page if we have no variables
 if (form.getvalue("course", "") == ""):
 	print ''.join([
-		"<form method='post' action='checkMovePage.py'>Course:<input type='text' name='course'/><br/>",
+		"<form method='post' action='findAvailPage.py'>Course:<input type='text' name='course'/><br/>",
 		"Acceptable Losses (SR):<input type='number' name='SR'/><br/>Acceptable Losses (!SR):<input type='number' name='NSR'/><br/>",
 		"<input type='submit'/></form>"])
 	exit()
