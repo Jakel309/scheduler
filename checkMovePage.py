@@ -20,13 +20,11 @@ if (form.getvalue("course", "") == ""):
 	exit()
 
 #return to normal code
-import sys
 import re
 import mysql.connector
 from mysql.connector.constants import ClientFlag
 import string
 import ConfigParser
-import os
 
 
 print "<pre>"
@@ -341,3 +339,4 @@ else:
 
 
 print "</pre>"
+
